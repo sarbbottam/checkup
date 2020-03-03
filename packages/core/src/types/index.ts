@@ -2,6 +2,7 @@ import * as t from 'io-ts';
 
 import { JsonObject, PromiseValue } from 'type-fest';
 import { RuntimeCheckupConfig, RuntimeTaskConfig } from './runtime-types';
+import CardData from '../pdf-components/card-data';
 
 export type CheckupConfig = t.TypeOf<typeof RuntimeCheckupConfig>;
 export type TaskConfig = t.TypeOf<typeof RuntimeTaskConfig>;
@@ -21,6 +22,14 @@ export const enum Priority {
   High = 'high',
   Medium = 'medium',
   Low = 'low',
+}
+
+export declare const enum Grade {
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  F = 'F',
 }
 
 export type TaskName = string;
@@ -43,7 +52,7 @@ export type JsonTaskResult = {
 export interface TaskResult {
   stdout: () => void;
   json: () => JsonTaskResult;
-  pdf: () => void;
+  pdf: () => void | CardData;
 }
 
 export interface TaskMetaData {
@@ -56,6 +65,7 @@ export interface TaskItemData {
   type: string;
   data: string[];
   total: number;
+  percentage?: string;
 }
 
 export type SearchPatterns = Record<string, string[]>;

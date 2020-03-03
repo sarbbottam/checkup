@@ -23,7 +23,10 @@ enum ReporterType {
   pdf = 'pdf',
 }
 
-function mergeTaskResults(taskResults: TaskResult[]) {
+function mergeTaskResults(
+  taskResults: TaskResult[],
+  resultFormat: ReporterType = ReporterType.json
+) {
   let mergedResults: any = {
     [Category.Core]: {
       [Priority.High]: [],
@@ -31,14 +34,25 @@ function mergeTaskResults(taskResults: TaskResult[]) {
       [Priority.Low]: [],
     },
   };
+  if (resultFormat === ReporterType.json) {
+    taskResults.forEach(taskResult => {
+      let json = taskResult.json();
+      let { category, priority } = json.meta.taskClassification;
+      mergedResults[category][priority].push(json);
+    });
 
-  taskResults.forEach(taskResult => {
-    let json = taskResult.json();
-    let { category, priority } = json.meta.taskClassification;
-    mergedResults[category][priority].push(json);
-  });
+    return mergedResults;
+  } else if (resultFormat === ReporterType.pdf) {
+    taskResults.forEach(taskResult => {
+      let pdfData = taskResult.pdf();
+      if (pdfData) {
+        let { category, priority } = pdfData.meta.taskClassification;
+        mergedResults[category][priority].push(pdfData);
+      }
+    });
 
-  return mergedResults;
+    return mergedResults;
+  }
 }
 
 class Checkup extends Command {
@@ -141,16 +155,14 @@ class Checkup extends Command {
 
   private async outputResults(flags: any) {
     if (!flags.silent) {
-      if (flags.reporter !== ReporterType.stdout) {
-        let resultJson = mergeTaskResults(this.taskResults);
+      if (flags.reporter === ReporterType.pdf) {
+        let resultsForPdf = mergeTaskResults(this.taskResults, ReporterType.pdf);
+        let reportPath = await generateReport(flags.reportOutputPath, resultsForPdf);
 
-        if (flags.reporter === ReporterType.json) {
-          ui.styledJSON(resultJson);
-        } else {
-          let reportPath = await generateReport(flags.reportOutputPath, resultJson);
-
-          ui.log(reportPath);
-        }
+        ui.log(reportPath);
+      } else if (flags.reporter === ReporterType.json) {
+        let resultJson = mergeTaskResults(this.taskResults, ReporterType.json);
+        ui.styledJSON(resultJson);
       } else {
         this.taskResults.forEach(taskResult => taskResult.stdout());
       }

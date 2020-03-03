@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test-types-task returns all the test types (including nested) found in the app and outputs to JSON 1`] = `
+Object {
+  "meta": Object {
+    "friendlyTaskName": "Test Types",
+    "taskClassification": Object {
+      "category": "core",
+      "priority": "medium",
+    },
+    "taskName": "test-types",
+  },
+  "result": Object {
+    "types": Array [
+      Object {
+        "data": Array [
+          "addon/unit/tests/my-component-test.js",
+          "lib/ember-super-button/addon/unit/tests/my-component-test.js",
+        ],
+        "total": 2,
+        "type": "unit",
+      },
+      Object {
+        "data": Array [
+          "addon/integration/tests/my-component-test.js",
+          "lib/ember-super-button/addon/integration/tests/my-component-test.js",
+        ],
+        "total": 2,
+        "type": "integration",
+      },
+      Object {
+        "data": Array [
+          "addon/acceptance/someFolder/my-component-test.js",
+          "addon/acceptance/tests/my-component-test.js",
+          "lib/ember-super-button/addon/acceptance/someFolder/my-component-test.js",
+          "lib/ember-super-button/addon/acceptance/tests/my-component-test.js",
+        ],
+        "total": 4,
+        "type": "acceptance",
+      },
+    ],
+  },
+}
+`;
+
+exports[`test-types-task returns all the test types (including nested) found in the app and outputs to the console 1`] = `
+"=== Test Types
+
+Type        Total Percentage 
+unit        2     25%        
+integration 2     25%        
+acceptance  4     50%        
+
+"
+`;
+
+exports[`test-types-task returns all the test types found in the app and outputs to JSON 1`] = `
+Object {
+  "meta": Object {
+    "friendlyTaskName": "Test Types",
+    "taskClassification": Object {
+      "category": "core",
+      "priority": "medium",
+    },
+    "taskName": "test-types",
+  },
+  "result": Object {
+    "types": Array [
+      Object {
+        "data": Array [
+          "addon/unit/tests/my-component-test.js",
+        ],
+        "total": 1,
+        "type": "unit",
+      },
+      Object {
+        "data": Array [
+          "addon/integration/tests/my-component-test.js",
+        ],
+        "total": 1,
+        "type": "integration",
+      },
+      Object {
+        "data": Array [
+          "addon/acceptance/someFolder/my-component-test.js",
+          "addon/acceptance/tests/my-component-test.js",
+        ],
+        "total": 2,
+        "type": "acceptance",
+      },
+    ],
+  },
+}
+`;
+
+exports[`test-types-task returns all the test types found in the app and outputs to the console 1`] = `
+"=== Test Types
+
+Type        Total Percentage 
+unit        1     25%        
+integration 1     25%        
+acceptance  2     50%        
+
+"
+`;

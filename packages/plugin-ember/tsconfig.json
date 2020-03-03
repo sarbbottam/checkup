@@ -6,7 +6,8 @@
     "types": ["jest", "node"],
     "baseUrl": ".",
     "paths": {
-      "@checkup/core": ["../core/lib/index.d.ts"]
+      "@checkup/core": ["../core/lib/index.d.ts"],
+      "@checkup/parser-eslint": ["../parser-eslint/lib/index.d.ts"]
     }
   },
   "include": ["src/**/*"]

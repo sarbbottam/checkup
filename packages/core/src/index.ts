@@ -4,7 +4,6 @@ export { default as FileSearcherTask } from './file-searcher-task';
 export { default as FileSearcher } from './searchers/file-searcher';
 export { default as NumericalCardData } from './report-components/numerical-card-data';
 export { default as TableData } from './report-components/table-data';
-export { default as GradedTableData } from './report-components/graded-table-data';
 export { default as PieChartData } from './report-components/pie-chart-data';
 export { loadPlugins } from './loaders/plugin-loader';
 export { getPackageJson } from './utils/get-package-json';

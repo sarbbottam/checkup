@@ -4,12 +4,8 @@ import { ReportComponentData } from './report-component-data';
 export default class TableData extends ReportComponentData {
   tableHeaders: Array<string>;
 
-  constructor(
-    meta: TaskMetaData,
-    public taskResult: DependencyResult[],
-    reportComponentType: ReportComponentType = ReportComponentType.Table
-  ) {
-    super(meta, reportComponentType);
+  constructor(meta: TaskMetaData, public taskResult: DependencyResult[]) {
+    super(meta, ReportComponentType.Table);
     this.tableHeaders = this._deriveTableHeaders(taskResult);
   }
   _deriveTableHeaders(taskResult: DependencyResult[]): Array<string> {
